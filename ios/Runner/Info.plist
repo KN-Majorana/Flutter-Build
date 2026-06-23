@@ -2,6 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>散歩中の現在地を地図に表示し、軌跡を記録するために使用します。</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>散歩中の現在地を地図に表示し、軌跡を記録するために使用します。</string>
+	<key>NSCameraUsageDescription</key>
+	<string>散歩中に写真を撮影して地図に記録するために使用します。</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>撮影した写真をアプリ内に保存するために使用します。</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
