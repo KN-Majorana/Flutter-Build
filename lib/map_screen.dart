@@ -393,7 +393,7 @@ class _MapScreenState extends State<MapScreen> {
             children: [
               TileLayer(
                 urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                userAgentPackageName: 'com.example.app',
+                userAgentPackageName: 'com.example.RunnerTests',
                 maxZoom: 19,
               ),
               // 通常モード: 記録中の軌跡を青線で表示
