@@ -1,1 +1,10 @@
+#include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"
 #include "Generated.xcconfig"
+
+// ── 署名なしビルド用の上書き ──
+CODE_SIGN_STYLE = Manual
+CODE_SIGN_IDENTITY = 
+CODE_SIGNING_REQUIRED = NO
+CODE_SIGNING_ALLOWED = NO
+DEVELOPMENT_TEAM = 
+PROVISIONING_PROFILE_SPECIFIER =
