@@ -4,13 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
+import 'collage_screen.dart';
 import 'current_location_marker.dart';
 import 'fog_clearing_service.dart';
 import 'fog_overlay.dart';
+import 'ghost_marker.dart';
 import 'ghost_track.dart';
 import 'location_service.dart';
 import 'map_mode.dart';
 import 'mode_switcher.dart';
+import 'photo_color_processor.dart';
 import 'photo_detail_sheet.dart';
 import 'photo_list_screen.dart';
 import 'photo_pin.dart';
@@ -20,8 +23,6 @@ import 'recording_controls.dart';
 import 'track_picker_sheet.dart';
 import 'track_storage_service.dart';
 import 'walk_track.dart';
-import 'ghost_marker.dart';
-import 'package:opencv_dart/opencv.dart' as cv;
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -301,6 +302,20 @@ class _MapScreenState extends State<MapScreen> {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text('写真を保存しました')));
+
+      // ─── 代表色抽出 & 色IDごとのJSON登録 ───
+      // ピンの追加・スナックバーは先に終わらせて、色処理は裏で走らせる。
+      // 失敗してもユーザー体験は止めない。
+      unawaited(
+        processAndRegisterPhoto(
+          imagePath: path,
+          latitude: photoPosition.latitude,
+          longitude: photoPosition.longitude,
+        ).catchError((e, _) {
+          debugPrint('色抽出/登録に失敗: $e');
+          return null; // 戻り値の型整合用
+        }),
+      );
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(
@@ -313,6 +328,13 @@ class _MapScreenState extends State<MapScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (_) => PhotoListScreen(photoPins: _photoPins)),
+    );
+  }
+
+  void _openCollage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => CollageScreen(photoPins: _photoPins)),
     );
   }
 
@@ -528,6 +550,13 @@ class _MapScreenState extends State<MapScreen> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
+          // スクラップブック(コラージュ)
+          FloatingActionButton.small(
+            onPressed: _openCollage,
+            heroTag: 'collage',
+            child: const Icon(Icons.collections_outlined),
+          ),
+          const SizedBox(height: 8),
           // 写真一覧
           FloatingActionButton.small(
             onPressed: _openPhotoList,
