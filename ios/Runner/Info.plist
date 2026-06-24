@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+	<string>散歩ルートに紐づく写真を撮影するために使用します。</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>散歩ルートに写真をピン留めするために使用します。</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>撮影・編集した画像を写真ライブラリに保存するために使用します。</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>現在地を地図に表示し、散歩ルートを記録するために使用します。</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
